@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+
+	<constant name="struts.devMode" value="true"/>
+	
+	<!-- 打开DMI -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	
+    <package name="default" namespace="/" extends="struts-default">
+    	<!-- 可静态指定Action的method方法,不推荐，可忘掉它-->
+        <action name="userAdd" class="com.action.UserAction" method="add">
+            <result name="success">
+                /user.jsp
+            </result>
+        </action>
+        
+        <!-- 可直接在URL地址栏动态指定方法 "user!add"，动态方法调用DMI，推荐！但通配符更推荐！ -->
+        <action name="user" class="com.action.UserAction">
+            <result name="success">
+                /user.jsp
+            </result>
+        </action>
+    </package>
+</struts>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 设为开发者模式，改数据后不用重启服务器 -->
+	<constant name="struts.devMode" value="true" />
+	<package name="default" namespace="/" extends="struts-default">
+	
+		<!-- forward到jsp -->
+		<action name="r1">
+			<result type="dispatcher">/r1.jsp</result>
+		</action>
+		
+		<!-- redirect到jsp -->
+		<action name="r2">
+			<result type="redirect">/r2.jsp</result>
+		</action>
+		
+		<!-- forward到action -->
+		<action name="r3">
+			<result type="chain">
+				<!-- 当r1在同个包时，直接写r1 -->
+				<param name="namespace">/a</param>
+				<param name="actionName">r1</param>
+			</result>
+		</action>
+		
+		<!-- redirect到action -->
+		<action name="r4">
+			<result type="redirectAction">r2</result>
+		</action>
+		
+	</package>
+	
+	
+	<package name="another" namespace="/a" extends="struts-default">
+		<action name="r1">
+			<result>r1.jsp</result>
+		</action>
+	</package>
+</struts>

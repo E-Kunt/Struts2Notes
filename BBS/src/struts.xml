@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.devMode" value="true"/>
+	
+	<package name="base" extends="struts-default">
+		<global-results>
+			<result name="error">/WEB-INF/jsp/error.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings>
+	</package>
+
+	<package name="admin" namespace="/admin" extends="base">
+		<action name="index">
+			<result>/WEB-INF/jsp/admin/index.jsp</result>
+		</action>
+		<action name="*-*" class="com.ekunt.bbs.action.{1}Action"
+			method="{2}">
+			<result>/WEB-INF/jsp/admin/{1}-{2}.jsp</result>
+			<result name="input">/WEB-INF/jsp/admin/{1}-{2}.jsp</result>
+		</action>
+	</package>
+
+	<package name="front" namespace="/" extends="base">
+		<default-action-ref name="Category_list" />
+		<action name="Category_list" class="com.ekunt.bbs.action.CategoryAction"
+			method="list">
+			<result>/WEB-INF/jsp/index.jsp</result>
+		</action>
+	</package>
+
+</struts>

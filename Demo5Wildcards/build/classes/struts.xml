@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.devMode" value="true"/>
+    <package name="default" namespace="/" extends="struts-default">
+    	
+    	<!-- 使用通配符！严重推荐！使用“约定优于配置”的原则，将配置量降到最低！注意大小写！ -->
+        <action name="*_*" class="com.ekunt.action.{1}Action" method="{2}">
+            <result name="success">
+                /{1}_{2}_success.jsp
+            </result>
+        </action>
+    </package>
+</struts>

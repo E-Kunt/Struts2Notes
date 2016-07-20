@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.devMode" value="true"/>
+	<constant name="struts.enable.DynamicMethodInvocation" value="true"></constant>
+	
+    <!-- 指定允许上传的文件最大字节数。默认值是2097152(2M) -->
+    <constant name="struts.multipart.maxSize" value="10110000"/>
+    <!-- 设置上传文件的临时文件夹,默认使用javax.servlet.context.tempdir -->
+    <constant name="struts.multipart.saveDir " value="d:/tmp" />
+    <!--  指定显示的错误信息的编码格式，注意这个编码应该跟你的回显的页面的格式是一致的  -->
+    <constant name="struts.i18n.encoding" value="UTF-8" />
+    <!-- 将错误消息转换成中文的文件，也称为国际化.我就直接放置在src目录下所以value不带包名 -->
+    <constant name="struts.custom.i18n.resources" value="messages_zh_CN" />
+    
+    <package name="default" namespace="/" extends="struts-default">
+    	
+        <action name="FileUpload" class="com.ekunt.action.FileUploadAction">
+            <result name="success">/FileUpload_seccess.jsp</result>
+            <result name="input">/FileUpload_input.jsp</result>
+            
+            <interceptor-ref name="fileUpload">
+               <!--  文件过滤 -->
+                <param name="allowedTypes">image/bmp,image/png,image/gif,image/jpeg</param>
+               <!--  文件大小, 以字节为单位 -->
+                <param name="maximumSize">100000</param>
+            </interceptor-ref>
+            <!-- 默认拦截器必须放在fileUpload之后，否则无效 -->
+            <interceptor-ref name="defaultStack" />
+        </action>
+    </package>
+</struts>
